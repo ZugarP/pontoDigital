@@ -3,6 +3,7 @@ package com.system.pontoDigital.hours;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -149,11 +150,28 @@ public class HoursController {
     }
 
 
-    @GetMapping("/")
+    @GetMapping("/all")
     public List<HoursModel> listAll(HttpServletRequest request){
         var idUser = request.getAttribute("idUser");
         var hours = this.hoursRepository.findByIdUser((Long)idUser);
         return hours;
+    }
+    @GetMapping("/byMonth")
+    public List<HoursModel> listByMonth(HttpServletRequest request){
+        var idUser = request.getAttribute("idUser");
+        var hours = this.hoursRepository.findByIdUser((Long)idUser);
+
+        var date = LocalDate.now().getMonthValue();
+        var year = LocalDate.now().getYear();
+
+        var dataFiltrada = hours.stream().filter(
+            e -> e.getDate().getMonthValue() == date
+            &&
+            e.getDate().getYear() == year)
+            .collect(Collectors.toList());
+
+
+        return dataFiltrada;
     }
     
     
