@@ -119,7 +119,7 @@ public class HoursController {
         
     }
 
-        @PutMapping("/saida/{id}")
+    @PutMapping("/saida/{id}")
     public ResponseEntity createExit(@RequestBody HoursModel hoursModel, HttpServletRequest request, @PathVariable Long id){
 
         var currentHour = LocalTime.now();
@@ -149,9 +149,23 @@ public class HoursController {
 
     }
 
+    @GetMapping("/All")
+    public List<HoursModel> listAll(HttpServletRequest request, @PathVariable String userType){
 
-    @GetMapping("/all")
-    public List<HoursModel> listAll(HttpServletRequest request){
+        if(userType.equals("admin")){
+            var hours = this.hoursRepository.findAll();
+
+            return hours;
+
+        }else{
+            return null;
+        }
+
+
+    }
+
+    @GetMapping("/byUserId")
+    public List<HoursModel> listByUserId(HttpServletRequest request){
         var idUser = request.getAttribute("idUser");
         var hours = this.hoursRepository.findByIdUser((Long)idUser);
         return hours;
