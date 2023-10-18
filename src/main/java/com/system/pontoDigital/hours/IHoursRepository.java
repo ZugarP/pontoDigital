@@ -10,5 +10,6 @@ public interface IHoursRepository extends JpaRepository<HoursModel, Long>{
 
     List<HoursModel> findByIdUser(Long idUser);
     List<HoursModel> findByIdUserAndDate(Long idUser, LocalDate date);
+
     
 }
