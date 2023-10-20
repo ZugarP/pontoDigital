@@ -2,6 +2,7 @@ package com.system.pontoDigital.users;
 
 import java.time.LocalDateTime;
 
+import org.antlr.v4.runtime.misc.NotNull;
 import org.hibernate.annotations.CreationTimestamp;
 
 import jakarta.persistence.Column;
